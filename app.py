@@ -14,6 +14,16 @@ columns = data["columns"]
 # --- 2. BUILD THE UI ---
 st.title("Software Developer Salary Predictor")
 
+with st.expander("⚠️ Read Before Using: Model Context & Limitations"):
+    st.markdown("""
+    **1. Currency is in USD:** The model was trained on global data and outputs in US Dollars. 
+    
+    **2. Dataset Bias (The Product vs. Service Divide):** This model is trained on the Stack Overflow Developer Survey. Developers who take this survey are generally highly engaged and often work at product-based companies or MNCs. Therefore, for markets like India, these predictions reflect the upper-percentile startup/FAANG ecosystem, not the median service-based IT sector (e.g., mass recruiters).
+    
+    **3. The IC Premium:** You may notice that a Senior "Standard Developer" (Specialist) sometimes out-earns a "Manager". In top-tier tech, elite Individual Contributors (ICs) and core architects frequently command higher compensation than middle management.
+    """)
+
+
 # Education Dictionary (Translates UI to Model Integers)
 ed_map = {
     "Primary / Secondary School": 2,
@@ -58,4 +68,5 @@ if st.button("Predict Salary"):
     prediction = xgb_model.predict(scaled_data)
     
     # Output the result to the UI
+
     st.write(f"### Predicted Salary: ${prediction[0]:,.2f}")
